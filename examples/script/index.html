@@ -24,7 +24,7 @@
         });
 
         const router = new VueRouter.createRouter({
-            history: VueRouter.createWebHistory(
+            history: VueRouter.createWebHashHistory(
                 document.querySelector("base")?.getAttribute("href")
             ),
             routes: [],

@@ -58,7 +58,7 @@
         });
 
         const router = new VueRouter.createRouter({
-            history: VueRouter.createWebHistory(
+            history: VueRouter.createWebHashHistory(
                 document.querySelector("base")?.getAttribute("href")
             ),
             routes: [],
@@ -104,7 +104,7 @@
 
     <script type="module">
         import { createApp, defineAsyncComponent } from "vue";
-        import { createRouter, createWebHistory } from "vue-router";
+        import { createRouter, createWebHistory, createWebHashHistory } from "vue-router";
 
         const app = createApp({
             data() {
@@ -113,7 +113,7 @@
         });
 
         const router = new createRouter({
-            history: createWebHistory(
+            history: createWebHashHistory(
                 document.querySelector("base")?.getAttribute("href")
             ),
             routes: [],
