@@ -1,0 +1,27 @@
+{
+  "name": "vue-sfc-browser",
+  "version": "0.1.0",
+  "description": "vue 3 dynamic sfc",
+  "main": "rollup.config.js",
+  "directories": {
+    "example": "examples"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nbaxp/vue-sfc-browser.git"
+  },
+  "keywords": [
+    "vue",
+    "dynamic",
+    "sfc"
+  ],
+  "author": "wg",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/nbaxp/vue-sfc-browser/issues"
+  },
+  "homepage": "https://github.com/nbaxp/vue-sfc-browser#readme"
+}

@@ -1,0 +1,19 @@
+﻿version: "3.8"
+services:
+    nginx:
+        image: nginx:1.21.0
+        ports:
+            - 80:80
+            - 443:443
+        volumes:
+            - ./examples:/usr/share/nginx/html
+            - ./nginx/nginx.conf:/etc/nginx/nginx.conf
+            - ./nginx/default.conf:/etc/nginx/conf.d/default.conf
+            - ./nginx/http.js:/etc/nginx/http.js
+            - ./nginx/server.crt:/etc/nginx/server.crt
+            - ./nginx/server.key:/etc/nginx/server.key
+    rollup:
+      build: .
+      volumes:
+        - ./:/app
+      command: tail -f /dev/null

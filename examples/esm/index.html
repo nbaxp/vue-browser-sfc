@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <base href="/esm/">
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>script mode</title>
+</head>
+
+<body>
+    <div id="app">
+        <router-view />
+    </div>
+    <script src="vue-sfc-browser.min.js"></script>
+    <script type="importmap">
+        {
+            "imports": {
+                "vue": "./vue-esm-browser.min.js",
+                "vue-router": "https://cdn.jsdelivr.net/npm/vue-router@4.0.6/dist/vue-router.esm-browser.js"
+            }
+        }
+    </script>
+
+    <script type="module">
+        import { createApp, defineAsyncComponent } from "vue";
+        import { createRouter, createWebHistory } from "vue-router";
+
+        const app = createApp({
+            data() {
+                return {};
+            }
+        });
+
+        const router = new createRouter({
+            history: createWebHistory(
+                document.querySelector("base")?.getAttribute("href")
+            ),
+            routes: [],
+        });
+
+        app.use(router);
+        MyVueExt.config(app, router, defineAsyncComponent);
+        app.mount("#app");
+    </script>
+</body>
+
+</html>
