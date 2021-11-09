@@ -1,10 +1,10 @@
-var version = '0.1.1';
+var version = '0.1.2';
 var debug = false;
 var basePath = '';
 var componentsPath = "/components";
 var viewsPath = "/views";
 var componentExt = ".html";
-var styleCounter = "component-style-counter";
+var styleCounter = "data-component-counter";
 var routerHome = "/home";
 var dac;
 
@@ -23,7 +23,7 @@ function append(parent, html) {
 }
 
 function addStyles(name, style) {
-    var styleList = document.querySelectorAll("head style." + name);
+    var styleList = document.querySelectorAll("head style." + name + ",head link." + name);
     if (styleList.length > 0) {
         for (var i = 0; i < styleList.length; i++) {
             var style = styleList[i];
@@ -40,7 +40,7 @@ function addStyles(name, style) {
 }
 
 function removeStyles(name) {
-    var styleList = document.querySelectorAll("head style." + name);
+    var styleList = document.querySelectorAll("head style." + name + ",head link." + name);
     if (styleList.length > 0) {
         for (var i = 0; i < styleList.length; i++) {
             var style = styleList[i];
@@ -65,7 +65,7 @@ function templateToModel(html, name, url, func) {
     var script = scriptTag?.innerHTML || '';
     evalByImportUriData(script, url, function (model) {
         model.template = template;
-        var styleTagList = doc.querySelectorAll("style");
+        var styleTagList = doc.querySelectorAll("style,link[rel='stylesheet']");
         if (styleTagList.length > 0) {
             model.style = "\n";
             for (var i = 0; i < styleTagList.length; i++) {
