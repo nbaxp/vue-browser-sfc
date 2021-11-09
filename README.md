@@ -1,4 +1,4 @@
-# Vue 单文件组件浏览器扩展
+# 在浏览器中使用 Vue 3 的单文件组件
 
 从技术上来讲，在浏览器支持了模块化和 importmap 并且 Edge 和 chrome 统一内核后，使用模块化的方式开发已经可以脱离 webpack 和 bebel 了，如果不是开发库而是开发应用，node.js 也可以不用了。
 
@@ -36,7 +36,6 @@
 <html>
 
 <head>
-    <base href="/script/">
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>script mode</title>
@@ -48,7 +47,7 @@
     </div>
     <script src="https://cdn.jsdelivr.net/npm/vue@3.2.21/dist/vue.global.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/vue-router@4.0.12/dist/vue-router.global.min.js"></script>
-    <script src="vue-sfc-browser.min.js"></script>
+    <script src="vue-browser-sfc.js"></script>
 
     <script>
         const app = Vue.createApp({
@@ -65,7 +64,7 @@
         });
 
         app.use(router);
-        MyVueExt.config(app, router);
+        VueBrowserSfc.config(app, router);
         app.mount("#app");
     </script>
 </body>
@@ -82,17 +81,16 @@
 <html>
 
 <head>
-    <base href="/esm/">
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>script mode</title>
+    <title>esm mode</title>
 </head>
 
 <body>
     <div id="app">
         <router-view />
     </div>
-    <script src="vue-sfc-browser.min.js"></script>
+    <script src="vue-browser-sfc.js"></script>
     <script type="importmap">
         {
             "imports": {
@@ -120,7 +118,7 @@
         });
 
         app.use(router);
-        MyVueExt.config(app, router, defineAsyncComponent);
+        VueBrowserSfc.config(app, router, defineAsyncComponent);
         app.mount("#app");
     </script>
 </body>

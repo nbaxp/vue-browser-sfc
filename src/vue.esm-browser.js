@@ -6661,7 +6661,7 @@ const DIRECTIVES = 'directives';
  * @private
  */
 function resolveComponent(name, maybeSelfReference) {
-    return MyVueExt.patchComponent(currentRenderingInstance.appContext.app, name, function () {
+    return VueBrowserSfc.patchComponent(currentRenderingInstance.appContext.app, name, function () {
         return resolveAsset(COMPONENTS, name, true, maybeSelfReference) || name;//warp by wg
     });
 }
@@ -6671,7 +6671,7 @@ const NULL_DYNAMIC_COMPONENT = Symbol();
  */
 function resolveDynamicComponent(component) {
     if (isString(component)) {
-        return MyVueExt.patchComponent(currentRenderingInstance.appContext.app, component, function () {
+        return  VueBrowserSfc.patchComponent(currentRenderingInstance.appContext.app, component, function () {
             return resolveAsset(COMPONENTS, component, false) || component;//warp by wg
         });
     }

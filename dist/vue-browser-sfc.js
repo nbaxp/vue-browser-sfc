@@ -1,4 +1,4 @@
-var MyVueExt = (function (exports) {
+var VueBrowserSfc = (function (exports) {
     'use strict';
 
     var version = '0.1.0';
@@ -186,7 +186,7 @@ var MyVueExt = (function (exports) {
         dac = defineAsyncComponent;
         exports.basePath = document.location.protocol +
             "//" + document.location.host +
-            trimEnd(base || (document.querySelector("base")?.getAttribute("href") ?? document.location.href), "/");
+            trimEnd(base || (document.querySelector("base")?.getAttribute("href") ?? document.location.pathname), "/");
         if (window.Vue) {
             var VueResolveComponent = Vue.resolveComponent;
             Vue.resolveComponent = function (name, maybeSelfReference) {
