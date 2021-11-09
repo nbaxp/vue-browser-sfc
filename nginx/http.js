@@ -36,11 +36,11 @@ function process(r) {
     }
     if (data) {
         var html = data.toString();
-        if (!html.includes("<base")) {
+        if (html.indexOf("<base") === -1) {
             html = html.replace("<head>", '<head>\n\t<base href="' + path + sep + '" />');
         }
         r.headersOut['x-real-path'] = path + sep;
-        r.return(200, data);
+        r.return(200, html);
     }
     else {
         r.return(200, err);

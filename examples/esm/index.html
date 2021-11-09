@@ -2,7 +2,6 @@
 <html>
 
 <head>
-    <base href="/esm/">
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>esm mode</title>
@@ -12,7 +11,7 @@
     <div id="app">
         <router-view />
     </div>
-    <script src="vue-sfc-browser.min.js"></script>
+    <script src="vue-browser-sfc.js"></script>
     <script type="importmap">
         {
             "imports": {
@@ -40,7 +39,7 @@
         });
 
         app.use(router);
-        MyVueExt.config(app, router, defineAsyncComponent);
+        VueBrowserSfc.config(app, router, defineAsyncComponent);
         app.mount("#app");
     </script>
 </body>
