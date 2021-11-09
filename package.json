@@ -1,8 +1,8 @@
 {
   "name": "vue-browser-sfc",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "vue 3 browser sfc",
-  "main": "rollup.config.js",
+  "main": "dist/vue-browser-sfc.min.js",
   "directories": {
     "example": "examples"
   },

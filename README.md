@@ -1,5 +1,7 @@
 # 在浏览器中使用 Vue 3 的单文件组件
 
+[![npm](https://img.shields.io/npm/v/vue-browser-sfc.svg)](https://www.npmjs.com/package/vue-browser-sfc)
+
 从技术上来讲，在浏览器支持了模块化和 importmap 并且 Edge 和 chrome 统一内核后，使用模块化的方式开发已经可以脱离 webpack 和 bebel 了，如果不是开发库而是开发应用，node.js 也可以不用了。
 
 从 Vue 本身来讲，Vue 3 本身已经不支持 IE 了，因此编译打包来支持低版本已经是个伪命题了。可以扩展或修改 Vue 在找不组件时，动态去服务端加载单文件组件，解析后调用 Vue 本身支持运行时定义异步组件的功能来避免单文件组件的编译问题。
