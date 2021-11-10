@@ -1,7 +1,7 @@
 var VueBrowserSfc = (function (exports) {
     'use strict';
 
-    var version = '0.1.2';
+    var version = '0.1.3';
     var debug = false;
     exports.basePath = '';
     var componentsPath = "/components";
@@ -78,7 +78,7 @@ var VueBrowserSfc = (function (exports) {
     }
 
     function evalByImportUriData(script, url, func) {
-        script = script.replaceAll('./', exports.basePath + '/');
+        script = script.replaceAll('./', exports.basePath + '/').trim();
         const dataUri = "data:text/javascript;charset=utf-8," + encodeURIComponent(script + '\n//@ sourceURL=' + url);
         import(dataUri).then((namespaceObject) => {
             func(namespaceObject.default ?? {});

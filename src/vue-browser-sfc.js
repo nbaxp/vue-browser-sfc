@@ -1,4 +1,4 @@
-var version = '0.1.2';
+var version = '0.1.3';
 var debug = false;
 var basePath = '';
 var componentsPath = "/components";
@@ -82,7 +82,7 @@ function templateToModel(html, name, url, func) {
 }
 
 function evalByImportUriData(script, url, func) {
-    script = script.replaceAll('./', basePath + '/');
+    script = script.replaceAll('./', basePath + '/').trim();
     const dataUri = "data:text/javascript;charset=utf-8," + encodeURIComponent(script + '\n//@ sourceURL=' + url);
     import(dataUri).then((namespaceObject) => {
         func(namespaceObject.default ?? {});
