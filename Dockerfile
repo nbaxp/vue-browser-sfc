@@ -3,4 +3,6 @@ ENV NODE_PATH /usr/local/lib/node_modules
 WORKDIR /app
 RUN  npm install eslint -g \ 
     && npm i rollup -g \
-    && npm i rollup-plugin-terser -g
+    && npm i rollup-plugin-terser -g \
+    && npm i @rollup/plugin-replace -g \
+    && npm i @rollup/plugin-json -g

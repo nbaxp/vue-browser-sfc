@@ -6661,7 +6661,7 @@ const DIRECTIVES = 'directives';
  * @private
  */
 function resolveComponent(name, maybeSelfReference) {
-    return resolveAsset(COMPONENTS, name, true, maybeSelfReference) || name;
+    return VueBrowserSfc.patchComponent(currentRenderingInstance.appContext.app, name, function () {return resolveAsset(COMPONENTS, name, true, maybeSelfReference) || name;});
 }
 const NULL_DYNAMIC_COMPONENT = Symbol();
 /**
@@ -6669,7 +6669,7 @@ const NULL_DYNAMIC_COMPONENT = Symbol();
  */
 function resolveDynamicComponent(component) {
     if (isString(component)) {
-        return resolveAsset(COMPONENTS, component, false) || component;
+        return VueBrowserSfc.patchComponent(currentRenderingInstance.appContext.app, component, function () {return resolveAsset(COMPONENTS, component, false) || component;});
     }
     else {
         // invalid types will fallthrough to createVNode and raise warning

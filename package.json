@@ -1,6 +1,6 @@
 {
   "name": "vue-browser-sfc",
-  "version": "0.1.3",
+  "version": "0.1.5",
   "description": "vue 3 browser sfc",
   "main": "dist/vue-browser-sfc.min.js",
   "directories": {
@@ -21,7 +21,8 @@
   "author": "wg",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/nbaxp/vue-browser-sfc/issues"
+    "url": "https://github.com/nbaxp/vue-browser-sfc/issues",
+    "email": "76527413@qq.com"
   },
   "homepage": "https://github.com/nbaxp/vue-browser-sfc#readme"
 }

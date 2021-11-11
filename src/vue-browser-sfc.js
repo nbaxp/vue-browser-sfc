@@ -1,6 +1,7 @@
-var version = '0.1.3';
+import {version} from '../package.json';
+
 var debug = false;
-var basePath = '';
+var basePath = "";
 var componentsPath = "/components";
 var viewsPath = "/views";
 var componentExt = ".html";
@@ -126,7 +127,7 @@ function patchComponent(instance, name, fun) {
             basePath +
             componentsPath +
             "/" +
-            name.replaceAll("-", "/") +
+            name.replaceAll("_", "/") +
             componentExt;
         addComponent(instance, name, url);
         result = fun();
@@ -137,7 +138,7 @@ function patchComponent(instance, name, fun) {
 function configRouter(router) {
     router.beforeEach((to, from, next) => {
         var path = to.path === "/" ? routerHome : to.path;
-        var name = path.substring(1).replaceAll("/", "-");
+        var name = path.substring(1).replaceAll("/", "_");
         var url =
             basePath +
             componentsPath +

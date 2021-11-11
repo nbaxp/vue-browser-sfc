@@ -1,18 +1,29 @@
-import { terser } from "rollup-plugin-terser";
+import { terser } from 'rollup-plugin-terser';
+import json from '@rollup/plugin-json';
+
+var replace = {
+    name: 'replace', transform(code) {
+        return code.replace('return resolveAsset(COMPONENTS, name, true, maybeSelfReference) || name;', 'return VueBrowserSfc.patchComponent(currentRenderingInstance.appContext.app, name, function () {return resolveAsset(COMPONENTS, name, true, maybeSelfReference) || name;});')
+            .replace('return resolveAsset(COMPONENTS, component, false) || component;', 'return VueBrowserSfc.patchComponent(currentRenderingInstance.appContext.app, component, function () {return resolveAsset(COMPONENTS, component, false) || component;});');
+    }
+};
 
 export default [
     {
         input: "src/vue.esm-browser.js",
         output: [
             {
-                plugins: [terser()],
-                file: "dist/vue-esm-browser.min.js",
+                file: "dist/vue-esm-browser.js",
             },
             {
-                plugins: [terser()],
-                file: "examples/esm/vue-esm-browser.min.js",
+                file: "examples/esm/vue-esm-browser.js",
             },
+            {
+                file: "dist/vue-esm-browser.min.js",
+                plugins: [terser()]
+            }
         ],
+        plugins: [replace]
     },
     {
         input: "src/vue-browser-sfc.js",
@@ -33,11 +44,12 @@ export default [
                 name: "VueBrowserSfc",
             },
             {
-                plugins: [terser()],
                 file: "dist/vue-browser-sfc.min.js",
                 format: "iife",
                 name: "VueBrowserSfc",
+                plugins: [terser()]
             },
         ],
+        plugins: [json()]
     },
 ];
