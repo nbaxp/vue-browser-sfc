@@ -1,4 +1,4 @@
-import {version} from '../package.json';
+import { version } from '../package.json';
 
 var debug = false;
 var basePath = "";
@@ -96,10 +96,8 @@ function addComponent(instance, name, url) {
         dac(
             () =>
                 new Promise((resolve, reject) => {
-                    fetch(url)
-                        .then(function (response) {
-                            return response.text();
-                        })
+                    fetch(url, { cache: 'no-cache' })
+                        .then(o => o.text())
                         .then(function (text) {
                             if (text) {
                                 templateToModel(text, name, url, function (
@@ -146,10 +144,8 @@ function configRouter(router) {
             path +
             componentExt;
         if (!router.hasRoute(name)) {
-            fetch(url)
-                .then(function (response) {
-                    return response.text();
-                })
+            fetch(url, { cache: 'no-cache' })
+                .then(o => o.text())
                 .then(function (text) {
                     if (text) {
                         templateToModel(text, name, url, function (component) {

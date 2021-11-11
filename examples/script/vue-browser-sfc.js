@@ -1,7 +1,7 @@
 var VueBrowserSfc = (function (exports) {
   'use strict';
 
-  var version = "0.1.5";
+  var version = "0.1.6";
 
   var debug = false;
   exports.basePath = "";
@@ -92,10 +92,8 @@ var VueBrowserSfc = (function (exports) {
           dac(
               () =>
                   new Promise((resolve, reject) => {
-                      fetch(url)
-                          .then(function (response) {
-                              return response.text();
-                          })
+                      fetch(url, { cache: 'no-cache' })
+                          .then(o => o.text())
                           .then(function (text) {
                               if (text) {
                                   templateToModel(text, name, url, function (
@@ -142,10 +140,8 @@ var VueBrowserSfc = (function (exports) {
               path +
               componentExt;
           if (!router.hasRoute(name)) {
-              fetch(url)
-                  .then(function (response) {
-                      return response.text();
-                  })
+              fetch(url, { cache: 'no-cache' })
+                  .then(o => o.text())
                   .then(function (text) {
                       if (text) {
                           templateToModel(text, name, url, function (component) {
