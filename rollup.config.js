@@ -1,10 +1,23 @@
 import { terser } from 'rollup-plugin-terser';
 import json from '@rollup/plugin-json';
 
+var resolveComponent = 'return resolveAsset(COMPONENTS, name, true, maybeSelfReference) || name;';
+var resolveComponentReplace = `if(window.VueBrowserSfc){
+        return VueBrowserSfc.patchComponent(currentRenderingInstance.appContext.app, name, function () {${resolveComponent}});
+    }else{
+        ${resolveComponent}
+    }`;
+var resolveDynamicComponent = 'return resolveAsset(COMPONENTS, component, false) || component;';
+var resolveDynamicComponentReplace = `if(window.VueBrowserSfc){
+        return VueBrowserSfc.patchComponent(currentRenderingInstance.appContext.app, component, function () {${resolveDynamicComponent}});
+    }else{
+        ${resolveDynamicComponent}
+    }`;
+
 var replace = {
     name: 'replace', transform(code) {
-        return code.replace('return resolveAsset(COMPONENTS, name, true, maybeSelfReference) || name;', 'return VueBrowserSfc.patchComponent(currentRenderingInstance.appContext.app, name, function () {return resolveAsset(COMPONENTS, name, true, maybeSelfReference) || name;});')
-            .replace('return resolveAsset(COMPONENTS, component, false) || component;', 'return VueBrowserSfc.patchComponent(currentRenderingInstance.appContext.app, component, function () {return resolveAsset(COMPONENTS, component, false) || component;});');
+        return code.replace(resolveComponent, resolveComponentReplace)
+            .replace(resolveDynamicComponent, resolveDynamicComponentReplace);
     }
 };
 
