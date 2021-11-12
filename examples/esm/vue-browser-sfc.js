@@ -1,7 +1,7 @@
 var VueBrowserSfc = (function (exports) {
   'use strict';
 
-  var version = "0.1.6";
+  var version = "0.1.7";
 
   var debug = false;
   exports.basePath = "";
@@ -11,6 +11,7 @@ var VueBrowserSfc = (function (exports) {
   var styleCounter = "data-component-counter";
   var routerHome = "/home";
   var dac;
+  var isNativeTag;
 
   function trimEnd(input, char) {
       return input.endsWith(char) ? input.substr(0, input.length - 1) : input;
@@ -117,6 +118,10 @@ var VueBrowserSfc = (function (exports) {
   function patchComponent(instance, name, fun) {
       var result = fun();
       if (!result || typeof result === "string") {
+          if(isNativeTag(name))
+          {
+              return name;
+          }
           var url =
               exports.basePath +
               componentsPath +
@@ -180,6 +185,7 @@ var VueBrowserSfc = (function (exports) {
   }
 
   function config(app, router, defineAsyncComponent, base) {
+      isNativeTag = app.config.isNativeTag;
       dac = defineAsyncComponent;
       exports.basePath = document.location.protocol +
           "//" + document.location.host +

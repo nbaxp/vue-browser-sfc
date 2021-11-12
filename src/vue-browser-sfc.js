@@ -8,6 +8,7 @@ var componentExt = ".html";
 var styleCounter = "data-component-counter";
 var routerHome = "/home";
 var dac;
+var isNativeTag;
 
 function log(msg) {
     if (debug) {
@@ -121,6 +122,10 @@ function addComponent(instance, name, url) {
 function patchComponent(instance, name, fun) {
     var result = fun();
     if (!result || typeof result === "string") {
+        if(isNativeTag(name))
+        {
+            return name;
+        }
         var url =
             basePath +
             componentsPath +
@@ -184,6 +189,7 @@ function configRouter(router) {
 }
 
 function config(app, router, defineAsyncComponent, base) {
+    isNativeTag = app.config.isNativeTag;
     dac = defineAsyncComponent;
     basePath = document.location.protocol +
         "//" + document.location.host +
