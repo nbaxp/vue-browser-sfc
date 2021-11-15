@@ -11,6 +11,7 @@ function process(r) {
     var path = uri.endsWith(sep) ? uri.substr(0, uri.length - 1) : uri;
     try {
         data = fs.readFileSync(file);
+        r.return(200, data);
     }
     catch (e) {
         err = e.toString();
@@ -33,17 +34,17 @@ function process(r) {
                 path = path.substr(0, path.lastIndexOf(sep));
             }
         }
-    }
-    if (data) {
-        var html = data.toString();
-        if (html.indexOf("<base") === -1) {
-            html = html.replace("<head>", '<head>\n\t<base href="' + path + sep + '" />');
+        if (data) {
+            var html = data.toString();
+            if (html.indexOf("<base") === -1) {
+                html = html.replace("<head>", '<head>\n\t<base href="' + path + sep + '" />');
+            }
+            r.headersOut['x-real-path'] = path + sep;
+            r.return(200, html);
         }
-        r.headersOut['x-real-path'] = path + sep;
-        r.return(200, html);
-    }
-    else {
-        r.return(200, err);
+        else {
+            r.return(200, err);
+        }
     }
 }
 
