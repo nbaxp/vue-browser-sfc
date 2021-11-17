@@ -30,7 +30,7 @@
         });
 
         app.use(router);
-        VueBrowserSfc.config(app, router);
+        app.use(VueBrowserSfc);
         app.mount("#app");
     </script>
 </body>

@@ -1,4 +1,4 @@
-# 在浏览器中使用 Vue 3 的单文件组件
+# 浏览器中Vue 3 的单文件组件插件
 
 [![npm](https://img.shields.io/npm/v/vue-browser-sfc.svg)](https://www.npmjs.com/package/vue-browser-sfc)
 
@@ -27,7 +27,7 @@
 
 ## 使用
 
-默认 /components 目录为组件目录；默认 /components/views 目录为路由组件目录。
+默认 /components 目录为组件目录；默认 /views 目录为路由组件目录。
 
 ### script 加载方式
 
@@ -66,7 +66,7 @@
         });
 
         app.use(router);
-        VueBrowserSfc.config(app, router);
+        app.use(VueBrowserSfc);
         app.mount("#app");
     </script>
 </body>
@@ -120,7 +120,7 @@
         });
 
         app.use(router);
-        VueBrowserSfc.config(app, router, defineAsyncComponent);
+        app.use(VueBrowserSfc, defineAsyncComponent);
         app.mount("#app");
     </script>
 </body>

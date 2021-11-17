@@ -39,7 +39,7 @@
         });
 
         app.use(router);
-        VueBrowserSfc.config(app, router, defineAsyncComponent);
+        app.use(VueBrowserSfc, defineAsyncComponent);
         app.mount("#app");
     </script>
 </body>

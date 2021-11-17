@@ -1,17 +1,19 @@
 import { version } from '../package.json';
 
-var debug = false;
-var basePath = "";
-var componentsPath = "/components";
-var viewsPath = "/views";
-var componentExt = ".html";
-var styleCounter = "data-component-counter";
-var routerHome = "/home";
+var config = {};
+
+config.debug = false;
+config.basePath = "";
+config.componentsPath = "/components";
+config.viewsPath = "/views";
+config.componentExt = ".html";
+config.styleCounter = "data-component-counter";
+config.routerHome = "/home";
 var dac;
 var isNativeTag;
 
 function log(msg) {
-    if (debug) {
+    if (config.debug) {
         console.log(msg);
     }
 }
@@ -30,9 +32,9 @@ function addStyles(name, style) {
         for (var i = 0; i < styleList.length; i++) {
             var style = styleList[i];
             var counter = parseInt(
-                style.getAttribute(styleCounter)
+                style.getAttribute(config.styleCounter)
             );
-            style.setAttribute(styleCounter, counter + 1);
+            style.setAttribute(config.styleCounter, counter + 1);
         }
     } else {
         if (style) {
@@ -47,10 +49,10 @@ function removeStyles(name) {
         for (var i = 0; i < styleList.length; i++) {
             var style = styleList[i];
             var counter = parseInt(
-                style.getAttribute(styleCounter)
+                style.getAttribute(config.styleCounter)
             );
             if (counter - 1 > 0) {
-                style.setAttribute(styleCounter, counter - 1);
+                style.setAttribute(config.styleCounter, counter - 1);
             } else {
                 document.head.removeChild(style);
             }
@@ -74,7 +76,7 @@ function templateToModel(html, name, url, func) {
                 var styleTag = styleTagList[i];
                 if (styleTag) {
                     styleTag.setAttribute("class", name);
-                    styleTag.setAttribute(styleCounter, 1);
+                    styleTag.setAttribute(config.styleCounter, 1);
                     model.style += styleTag.outerHTML + "\n";
                 }
             }
@@ -84,7 +86,7 @@ function templateToModel(html, name, url, func) {
 }
 
 function evalByImportUriData(script, url, func) {
-    script = script.replaceAll('./', basePath + '/').trim();
+    script = script.replaceAll('./', config.basePath + '/').trim();
     const dataUri = "data:text/javascript;charset=utf-8," + encodeURIComponent(script + '\n//@ sourceURL=' + url);
     import(dataUri).then((namespaceObject) => {
         func(namespaceObject.default ?? {});
@@ -122,16 +124,15 @@ function addComponent(instance, name, url) {
 function patchComponent(instance, name, fun) {
     var result = fun();
     if (!result || typeof result === "string") {
-        if(isNativeTag(name))
-        {
+        if (isNativeTag(name)) {
             return name;
         }
         var url =
-            basePath +
-            componentsPath +
+            config.basePath +
+            config.componentsPath +
             "/" +
             name.replaceAll("_", "/") +
-            componentExt;
+            config.componentExt;
         addComponent(instance, name, url);
         result = fun();
     }
@@ -140,14 +141,13 @@ function patchComponent(instance, name, fun) {
 
 function configRouter(router) {
     router.beforeEach((to, from, next) => {
-        var path = to.path === "/" ? routerHome : to.path;
+        var path = to.path === "/" ? config.routerHome : to.path;
         var name = path.substring(1).replaceAll("/", "_");
         var url =
-            basePath +
-            componentsPath +
-            viewsPath +
+            config.basePath +
+            config.viewsPath +
             path +
-            componentExt;
+            config.componentExt;
         if (!router.hasRoute(name)) {
             fetch(url, { cache: 'no-cache' })
                 .then(o => o.text())
@@ -188,10 +188,10 @@ function configRouter(router) {
     });
 }
 
-function config(app, router, defineAsyncComponent, base) {
+function install(app, defineAsyncComponent, base) {
     isNativeTag = app.config.isNativeTag;
     dac = defineAsyncComponent;
-    basePath = document.location.protocol +
+    config.basePath = document.location.protocol +
         "//" + document.location.host +
         trimEnd(base || (document.querySelector("base")?.getAttribute("href") ?? document.location.pathname), "/");
     if (window.Vue) {
@@ -205,9 +205,10 @@ function config(app, router, defineAsyncComponent, base) {
         };
         dac = dac || Vue.defineAsyncComponent;
     }
+    var router = app.config.globalProperties.$router;
     if (router) {
-        this.configRouter(router);
+        configRouter(router);
     }
 }
 
-export { version, debug, basePath, componentsPath, viewsPath, componentExt, styleCounter, routerHome, addComponent, patchComponent, config, configRouter };
+export { version, config, install, patchComponent };
