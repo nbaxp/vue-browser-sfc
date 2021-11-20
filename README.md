@@ -97,7 +97,8 @@
         {
             "imports": {
                 "vue": "./vue-esm-browser.min.js",
-                "vue-router": "https://cdn.jsdelivr.net/npm/vue-router@4.0.6/dist/vue-router.esm-browser.js"
+                "vue-router": "https://cdn.jsdelivr.net/npm/vue-router@4.0.6/dist/vue-router.esm-browser.js",
+                "vue-browser-sfc":"./vue-browser-sfc.esm.js"
             }
         }
     </script>
@@ -105,6 +106,7 @@
     <script type="module">
         import { createApp, defineAsyncComponent } from "vue";
         import { createRouter, createWebHistory, createWebHashHistory } from "vue-router";
+        import * as VueBrowserSfc from "vue-browser-sfc";
 
         const app = createApp({
             data() {

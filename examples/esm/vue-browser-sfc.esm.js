@@ -1,4 +1,4 @@
-import { version } from '../package.json';
+var version = "0.2.1";
 
 var config = {};
 
@@ -205,7 +205,7 @@ function install(app, defineAsyncComponent, base) {
         };
         dac = dac || Vue.defineAsyncComponent;
     }
-    else{
+    else {
         app.patchComponent = patchComponent;
     }
     var router = app.config.globalProperties.$router;
@@ -214,4 +214,4 @@ function install(app, defineAsyncComponent, base) {
     }
 }
 
-export { version, config, install, patchComponent };
+export { config, install, patchComponent, version };

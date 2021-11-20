@@ -1,7 +1,7 @@
 var VueBrowserSfc = (function (exports) {
   'use strict';
 
-  var version = "0.1.9";
+  var version = "0.2.1";
 
   var config = {};
 
@@ -207,6 +207,9 @@ var VueBrowserSfc = (function (exports) {
               return patchComponent(app, component, () => VueResolveDynamicComponent(component));
           };
           dac = dac || Vue.defineAsyncComponent;
+      }
+      else {
+          app.patchComponent = patchComponent;
       }
       var router = app.config.globalProperties.$router;
       if (router) {

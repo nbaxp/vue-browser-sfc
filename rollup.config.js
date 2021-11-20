@@ -2,14 +2,14 @@ import { terser } from 'rollup-plugin-terser';
 import json from '@rollup/plugin-json';
 
 var resolveComponent = 'return resolveAsset(COMPONENTS, name, true, maybeSelfReference) || name;';
-var resolveComponentReplace = `if(window.VueBrowserSfc){
-        return VueBrowserSfc.patchComponent(currentRenderingInstance.appContext.app, name, function () {${resolveComponent}});
+var resolveComponentReplace = `if(currentRenderingInstance.appContext.app.patchComponent){
+        return currentRenderingInstance.appContext.app.patchComponent(currentRenderingInstance.appContext.app, name, function () {${resolveComponent}});
     }else{
         ${resolveComponent}
     }`;
 var resolveDynamicComponent = 'return resolveAsset(COMPONENTS, component, false) || component;';
-var resolveDynamicComponentReplace = `if(window.VueBrowserSfc){
-        return VueBrowserSfc.patchComponent(currentRenderingInstance.appContext.app, component, function () {${resolveDynamicComponent}});
+var resolveDynamicComponentReplace = `if(currentRenderingInstance.appContext.app.patchComponent){
+        return currentRenderingInstance.appContext.app.patchComponent(currentRenderingInstance.appContext.app, component, function () {${resolveDynamicComponent}});
     }else{
         ${resolveDynamicComponent}
     }`;
@@ -44,17 +44,7 @@ export default [
             {
                 file: "dist/vue-browser-sfc.js",
                 format: "iife",
-                name: "VueBrowserSfc",
-            },
-            {
-                file: "examples/script/vue-browser-sfc.js",
-                format: "iife",
-                name: "VueBrowserSfc",
-            },
-            {
-                file: "examples/esm/vue-browser-sfc.js",
-                format: "iife",
-                name: "VueBrowserSfc",
+                name: "VueBrowserSfc"
             },
             {
                 file: "dist/vue-browser-sfc.min.js",
@@ -62,7 +52,28 @@ export default [
                 name: "VueBrowserSfc",
                 plugins: [terser()]
             },
+            {
+                file: "dist/vue-browser-sfc.esm.js",
+                format: "esm",
+                name: "VueBrowserSfc"
+            },
+            {
+                file: "dist/vue-browser-sfc.esm.min.js",
+                format: "esm",
+                name: "VueBrowserSfc",
+                plugins: [terser()]
+            },
+            {
+                file: "examples/script/vue-browser-sfc.js",
+                format: "iife",
+                name: "VueBrowserSfc"
+            },
+            {
+                file: "examples/esm/vue-browser-sfc.esm.js",
+                format: "esm",
+                name: "VueBrowserSfc"
+            }          
         ],
         plugins: [json()]
-    },
+    }
 ];
