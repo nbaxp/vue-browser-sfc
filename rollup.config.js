@@ -2,14 +2,14 @@ import { terser } from 'rollup-plugin-terser';
 import json from '@rollup/plugin-json';
 
 var resolveComponent = 'return resolveAsset(COMPONENTS, name, true, maybeSelfReference) || name;';
-var resolveComponentReplace = `if(currentRenderingInstance.appContext.app.patchComponent){
-        return currentRenderingInstance.appContext.app.patchComponent(currentRenderingInstance.appContext.app, name, function () {${resolveComponent}});
+var resolveComponentReplace = `if(currentRenderingInstance.appContext.app.config.globalProperties.patchComponent){
+        return currentRenderingInstance.appContext.app.config.globalProperties.patchComponent(currentRenderingInstance.appContext.app, name, function () {${resolveComponent}});
     }else{
         ${resolveComponent}
     }`;
 var resolveDynamicComponent = 'return resolveAsset(COMPONENTS, component, false) || component;';
-var resolveDynamicComponentReplace = `if(currentRenderingInstance.appContext.app.patchComponent){
-        return currentRenderingInstance.appContext.app.patchComponent(currentRenderingInstance.appContext.app, component, function () {${resolveDynamicComponent}});
+var resolveDynamicComponentReplace = `if(currentRenderingInstance.appContext.app.config.globalProperties.patchComponent){
+        return currentRenderingInstance.appContext.app.config.globalProperties.patchComponent(currentRenderingInstance.appContext.app, component, function () {${resolveDynamicComponent}});
     }else{
         ${resolveDynamicComponent}
     }`;

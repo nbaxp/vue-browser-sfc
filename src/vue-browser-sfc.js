@@ -206,7 +206,7 @@ function install(app, defineAsyncComponent, base) {
         dac = dac || Vue.defineAsyncComponent;
     }
     else{
-        app.patchComponent = patchComponent;
+        app.config.globalProperties.patchComponent = patchComponent;
     }
     var router = app.config.globalProperties.$router;
     if (router) {

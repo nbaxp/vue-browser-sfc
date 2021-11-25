@@ -6665,8 +6665,8 @@ const DIRECTIVES = 'directives';
  * @private
  */
 function resolveComponent(name, maybeSelfReference) {
-    if(currentRenderingInstance.appContext.app.patchComponent){
-        return currentRenderingInstance.appContext.app.patchComponent(currentRenderingInstance.appContext.app, name, function () {return resolveAsset(COMPONENTS, name, true, maybeSelfReference) || name;});
+    if(currentRenderingInstance.appContext.app.config.globalProperties.patchComponent){
+        return currentRenderingInstance.appContext.app.config.globalProperties.patchComponent(currentRenderingInstance.appContext.app, name, function () {return resolveAsset(COMPONENTS, name, true, maybeSelfReference) || name;});
     }else {
         return resolveAsset(COMPONENTS, name, true, maybeSelfReference) || name;
     }
@@ -6677,8 +6677,8 @@ const NULL_DYNAMIC_COMPONENT = Symbol();
  */
 function resolveDynamicComponent(component) {
     if (isString(component)) {
-        if(currentRenderingInstance.appContext.app.patchComponent){
-        return currentRenderingInstance.appContext.app.patchComponent(currentRenderingInstance.appContext.app, component, function () {return resolveAsset(COMPONENTS, component, false) || component;});
+        if(currentRenderingInstance.appContext.app.config.globalProperties.patchComponent){
+        return currentRenderingInstance.appContext.app.config.globalProperties.patchComponent(currentRenderingInstance.appContext.app, component, function () {return resolveAsset(COMPONENTS, component, false) || component;});
     }else {
         return resolveAsset(COMPONENTS, component, false) || component;
     }
